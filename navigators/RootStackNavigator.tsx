@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DetailsScreen from "../Screens/DetailsScreen";
 import HomeScreen from "../Screens/HomeScreen";
 
-type RootStackParamList = {
+export type RootStackParamList = {
     Home: undefined;
     Details: { id: string }
 }
