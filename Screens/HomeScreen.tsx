@@ -1,39 +1,3 @@
-// import { Image, ScrollView, StyleSheet, Text } from 'react-native';
-// import { user } from '../data';
-
-// export default function HomeScreen() {
-
-//     return (
-//         <ScrollView style={styles.container}>
-//             <Text>Fullname: {user.fullname}</Text>
-//             <Text>Age: {user.age}</Text>
-//             <Text>Weight:{user.weight} cm</Text>
-//             <Text>Height: {user.height} cm</Text>
-//             <Text>Water Intake: {user.waterintakes} Liters</Text>
-//             <Text>Atitude: {user.atitudes}</Text>
-//             <Text>Daily Steps: {user.dailySteps} steps</Text>
-//             <Text>Workout: {user.workouts}</Text>
-//             <Image
-//                 style={styles.image}
-//                 source={{ uri: user.images[0] }}
-//                 defaultSource={require('../selfies/OIP.jpg')}
-//                 onError={(error) => console.log("Image Load Error:", error.nativeEvent.error)} />
-//         </ScrollView>
-//     );
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         // flex: 1,
-//         // backgroundColor: '#fff',
-//         padding: 7
-//     },
-//     image: {
-//         width: "10%",
-//         height: "10%",
-//     }
-// });
-
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { user } from '../data';
 import WaterIntake from '../lib/WaterIntake';
@@ -53,11 +17,11 @@ export default function HomeScreen() {
                 <Text style={styles.value}>{user.height} cm</Text>
             </View>
             <View style={styles.infoContainer}>
-                {/* <Text style={{ color: "white" }}>Water Intake: {user.waterintakes} Liters</Text> */}
                 <WaterIntake />
             </View>
             <View style={styles.infoContainer}>
                 <Text style={{ color: "white" }}>Daily Steps: {user.dailySteps} steps</Text>
+                {/* <StepCounter /> */}
             </View>
             <View style={styles.infoContainer}>
                 <Text style={{ color: "white" }}>Atitude: {user.atitudes}</Text>
