@@ -31,8 +31,10 @@ export default function HomeScreen({ navigation }: Props) {
                 < LocationExpo />
             </View>
             <View style={styles.infoContainer}>
-                <Text style={{ color: "white" }}>Atitude: {user.atitudes}</Text>
-                <Text style={{ color: "white" }}>Workout: {user.workouts}</Text>
+                <Button title='Go To MoodScreen' onPress={() => navigation.navigate('MoodScreen')} />
+            </View>
+            <View style={styles.infoContainer}>
+                <Button title='Go To WoroutScreen' onPress={() => navigation.navigate('WorkoutScreen')} />
             </View>
             <View style={styles.infoContainer}>
                 <Button title='Go To WaterScreen' onPress={() => navigation.navigate('LogWaterScreen')} />

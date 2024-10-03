@@ -1,7 +1,7 @@
 
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import { Button, Image, StyleSheet, View } from 'react-native';
+import { Button, Image, ScrollView, StyleSheet, View } from 'react-native';
 
 export default function ImagePickerExample() {
     const [image, setImage] = useState<string | null>(null);
@@ -27,22 +27,48 @@ export default function ImagePickerExample() {
     };
 
     return (
-        <View style={styles.container}>
-            <Button title="Pick an image from camera roll" onPress={pickImage} />
-            {image && <Image source={{ uri: image }} style={styles.image} />}
-        </View>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+            <View style={styles.container}>
+                <Button title="Pick an image from camera roll" onPress={pickImage} color="#841584" />
+                {image && <Image source={{ uri: image }} style={styles.image} />}
+            </View>
+            <View style={styles.imageContainer}>
+                <Image
+                    style={styles.image}
+                    source={require('../selfies/OIP.jpg')}
+                />
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+    scrollView: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
+        padding: 20,
+    },
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'black',
+        marginBottom: 20,
+    },
+    imageContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 20,
     },
     image: {
         width: 200,
         height: 200,
+        borderRadius: 10,
+        margin: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
     },
 });
