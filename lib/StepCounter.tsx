@@ -1,94 +1,17 @@
-// import { Pedometer } from 'expo-sensors';
-// import { useEffect, useState } from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-
-
-//     const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
-//     const [pastStepCount, setPastStepCount] = useState(0);
-//     const [currentStepCount, setCurrentStepCount] = useState(0);
-
-//     // Pedometer.getPermissionsAsync();
-
-//     const subscribe = async () => {
-//         const isAvailable = await Pedometer.isAvailableAsync();
-//         setIsPedometerAvailable(String(isAvailable));
-
-//         if (isAvailable) {
-//             const end = new Date();
-//             const start = new Date();
-//             start.setDate(end.getDate() - 1);
-
-//             const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
-//             if (pastStepCountResult) {
-//                 setPastStepCount(pastStepCountResult.steps);
-//             }
-
-//             return Pedometer.watchStepCount(result => {
-//                 setCurrentStepCount(result.steps);
-//             });
-//         }
-//     };
-
-//     // useEffect(() => {
-//     //     const subscription = subscribe();
-//     //     return () => subscription && subscription.remove();
-//     // }, []);
-//     useEffect(() => {
-//         const subscribeAsync = async () => {
-//             const subscription = await subscribe();
-//             return () => subscription && subscription.remove();
-//         };
-
-//         subscribeAsync();
-
-//         // Cleanup function
-//         return () => {
-//             subscribeAsync().then(cleanup => cleanup && cleanup());
-//         };
-//     }, []);
-
-
-//     return (
-//         <View style={styles.container}>
-//             <Text>Pedometer.isAvailableAsync(): {isPedometerAvailable}</Text>
-//             <Text>Steps taken in the last 24 hours: {pastStepCount}</Text>
-//             <Text>Walk! And watch this go up: {currentStepCount}</Text>
-//         </View>
-//     );
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         marginTop: 15,
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-// });
-
-
 import { Pedometer } from 'expo-sensors';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export default function StepCounter() {
     const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
     const [pastStepCount, setPastStepCount] = useState(0);
     const [currentStepCount, setCurrentStepCount] = useState(0);
 
+
     const subscribe = async () => {
-        const { status } = await Pedometer.getPermissionsAsync();
-        if (status !== 'granted') {
-            setIsPedometerAvailable('Permission not granted');
-            return;
-        }
+        setIsPedometerAvailable('granted');
 
-        const isAvailable = await Pedometer.isAvailableAsync();
-        setIsPedometerAvailable(String(isAvailable));
-
-        if (isAvailable) {
+        if (isPedometerAvailable === 'granted') {
             const end = new Date();
             const start = new Date();
             start.setDate(end.getDate() - 1);
@@ -106,13 +29,18 @@ export default function App() {
 
     useEffect(() => {
         const subscribeAsync = async () => {
-            const subscription = await subscribe();
-            return () => subscription && subscription.remove();
+            const permissionGranted = await Pedometer.requestPermissionsAsync();
+            if (permissionGranted) {
+                // await setIsPedometerAvailable();
+                const subscription = await subscribe();
+                return () => subscription && subscription.remove();
+            } else {
+                setIsPedometerAvailable('Permission not granted');
+            }
         };
 
         subscribeAsync();
 
-        // Cleanup function
         return () => {
             subscribeAsync().then(cleanup => cleanup && cleanup());
         };
@@ -120,9 +48,9 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text>Pedometer.isAvailableAsync(): {isPedometerAvailable}</Text>
-            <Text>Steps taken in the last 24 hours: {pastStepCount}</Text>
-            <Text>Walk! And watch this go up: {currentStepCount}</Text>
+            <Text style={{ color: 'white' }}>Pedometer.isAvailableAsync(): {isPedometerAvailable}</Text>
+            <Text style={{ color: 'white' }}>Steps taken in the last 24 hours: {pastStepCount}</Text>
+            <Text style={{ color: 'white' }}>Walk! And watch this go up: {currentStepCount}</Text>
         </View>
     );
 }

@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -19,22 +20,85 @@ export default function WaterIntake() {
         } catch (e) {
             console.error("Failed to save data:", e);
         }
-    }
+    };
 
     const getData = async (key: string) => {
         try {
             const value = await AsyncStorage.getItem(key);
-
             if (value !== null) {
                 setWater(Number(value));
             }
         } catch (e) {
-            console.error("error to fetch data:", e);
+            console.error("Error fetching data:", e);
         }
-    }
+    };
+
+    const resetStorage = async () => {
+        try {
+            const now = new Date();
+            if (now.getHours() === 23 && now.getMinutes() === 59) {
+                await AsyncStorage.clear();
+                setWater(0);
+            }
+        } catch (error) {
+            console.error("Failed to reset data:", error);
+        }
+    };
+
+    const schedulePushNotification = async () => {
+        const now = new Date();
+        const nextNotification = new Date();
+        nextNotification.setHours(18, 0, 0, 0);
+
+        if (now > nextNotification) {
+            nextNotification.setDate(nextNotification.getDate() + 1);
+        }
+        const delay = nextNotification.getTime() - now.getTime();
+
+        if (water < 5) {
+            console.log("Water: ", water);
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: "You've got a message! 📬",
+                    body: "You haven't drunk 5 glasses of water today. Stay hydrated!",
+                },
+                trigger: { hour: delay / 10000, repeats: true },
+            });
+        }
+    };
+
+    const registerForPushNotificationsAsync = async () => {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+
+        if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+        }
+    };
 
     useEffect(() => {
-        getData('water');
+        const registerAndSchedule = async () => {
+            await registerForPushNotificationsAsync();
+            Notifications.setNotificationHandler({
+                handleNotification: async () => ({
+                    shouldShowAlert: true,
+                    shouldPlaySound: true,
+                    shouldSetBadge: true,
+                }),
+            });
+            await getData('water');
+            await schedulePushNotification();
+            await resetStorage();
+        };
+
+        registerAndSchedule();
+
     }, []);
 
     return (
@@ -42,7 +106,7 @@ export default function WaterIntake() {
             <Text style={styles.title}>Today's Water Intake</Text>
             <TextInput
                 style={styles.input}
-                value={String(water)}
+                value={water.toString()}
                 onChangeText={text => setWater(Number(text))}
                 keyboardType="numeric"
             />

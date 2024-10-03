@@ -1,18 +1,27 @@
 import { StyleSheet, Text, View } from 'react-native';
+import ImagePicker from '../lib/ImagePicker';
 
 export default function DetailsScreen() {
     return (
         <View style={styles.container}>
-            <Text>DetailsScreen</Text>
+            <View style={styles.headline}>
+                <Text>HERE IS YOUR SELFIES</Text>
+            </View>
+            <View>
+                <ImagePicker />
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    headline: {
+        marginTop: 35
+    }
 });

@@ -1,8 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { user } from '../data';
+import StepCounter from '../lib/StepCounter';
 import WaterIntake from '../lib/WaterIntake';
+import { RootStackParamList } from '../navigators/RootStackNavigator';
 
-export default function HomeScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, "Home">;
+
+export default function HomeScreen({ navigation }: Props) {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.infoContainer}>
@@ -16,22 +21,25 @@ export default function HomeScreen() {
                 <Text style={styles.label}>Height:</Text>
                 <Text style={styles.value}>{user.height} cm</Text>
             </View>
+            <View style={styles.infoContainer2}>
+                <Image
+                    style={styles.image}
+                    source={require('../selfies/OIP.jpg')}
+                />
+            </View>
             <View style={styles.infoContainer}>
                 <WaterIntake />
             </View>
             <View style={styles.infoContainer}>
-                <Text style={{ color: "white" }}>Daily Steps: {user.dailySteps} steps</Text>
-                {/* <StepCounter /> */}
+                < StepCounter />
             </View>
             <View style={styles.infoContainer}>
                 <Text style={{ color: "white" }}>Atitude: {user.atitudes}</Text>
                 <Text style={{ color: "white" }}>Workout: {user.workouts}</Text>
             </View>
-            {/* <Image
-                style={styles.image}
-                source={{ uri: user.images[0] }}
-                defaultSource={require('../selfies/OIP.jpg')}
-                onError={(error) => console.log("Image Load Error:", error.nativeEvent.error)} /> */}
+            <View style={styles.infoContainer}>
+                <Button title='Go To Details' onPress={() => navigation.navigate('Details')} />
+            </View>
         </ScrollView>
     );
 }
@@ -54,6 +62,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 7,
     },
+    infoContainer2: {
+        backgroundColor: '#333333',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 10,
+        marginTop: 7,
+        width: "100%",
+        height: 450,
+    },
     label: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -65,7 +82,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     image: {
-        width: "10%",
-        height: "10%",
+        width: "100%",
+        height: "100%",
     }
 });
