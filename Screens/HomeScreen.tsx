@@ -1,8 +1,8 @@
+import React from 'react';
 import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { user } from '../data';
-import StepCounter from '../lib/StepCounter';
-import WaterIntake from '../lib/WaterIntake';
+import LocationExpo from '../lib/Location';
 import { RootStackParamList } from '../navigators/RootStackNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -28,17 +28,20 @@ export default function HomeScreen({ navigation }: Props) {
                 />
             </View>
             <View style={styles.infoContainer}>
-                <WaterIntake />
-            </View>
-            <View style={styles.infoContainer}>
-                < StepCounter />
+                < LocationExpo />
             </View>
             <View style={styles.infoContainer}>
                 <Text style={{ color: "white" }}>Atitude: {user.atitudes}</Text>
                 <Text style={{ color: "white" }}>Workout: {user.workouts}</Text>
             </View>
             <View style={styles.infoContainer}>
-                <Button title='Go To Details' onPress={() => navigation.navigate('Details')} />
+                <Button title='Go To WaterScreen' onPress={() => navigation.navigate('LogWaterScreen')} />
+            </View>
+            <View style={styles.infoContainer}>
+                <Button title='Go To StepScreen' onPress={() => navigation.navigate('LogStepsScreen')} />
+            </View>
+            <View style={styles.infoContainer}>
+                <Button title='Go To Image-Picker' onPress={() => navigation.navigate('ImagePicker')} />
             </View>
         </ScrollView>
     );

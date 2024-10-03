@@ -6,8 +6,8 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 export default function WaterIntake() {
     const [water, setWater] = useState<number>(0);
 
-    const addGlass = () => {
-        setWater(prev => {
+    const addGlass = async () => {
+        await setWater(prev => {
             const newWater = prev + 1;
             storeData('water', newWater.toString());
             return newWater;
@@ -26,7 +26,7 @@ export default function WaterIntake() {
         try {
             const value = await AsyncStorage.getItem(key);
             if (value !== null) {
-                setWater(Number(value));
+                await setWater(Number(value));
             }
         } catch (e) {
             console.error("Error fetching data:", e);
@@ -107,7 +107,7 @@ export default function WaterIntake() {
             <TextInput
                 style={styles.input}
                 value={water.toString()}
-                onChangeText={text => setWater(Number(text))}
+                onChangeText={addGlass}
                 keyboardType="numeric"
             />
             <Button title="Add a glass" onPress={addGlass} />
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'black',
     },
     title: {
         fontSize: 24,

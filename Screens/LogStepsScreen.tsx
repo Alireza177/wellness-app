@@ -61,5 +61,6 @@ const styles = StyleSheet.create({
         marginTop: 15,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'black',
     },
 });

@@ -1,3 +1,4 @@
+
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { Button, Image, StyleSheet, View } from 'react-native';
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'black',
     },
     image: {
         width: 200,

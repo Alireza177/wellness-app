@@ -16,8 +16,8 @@ export default function DetailsScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        backgroundColor: '#fff',
+        flex: 1,
+        backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
     },
