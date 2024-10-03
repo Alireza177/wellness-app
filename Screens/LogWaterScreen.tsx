@@ -8,31 +8,29 @@ export default function WaterIntake() {
 
     const addGlass = async () => {
         try {
-            await setWater(prev => {
-                const newWater = prev + 1;
-                storeData('water', newWater.toString());
-                return newWater;
-            });
-
+            const newWaterValue = water + 1;
+            await storeData('water', newWaterValue);
+            setWater(newWaterValue);
         } catch (e) {
-            console.log("An error accurred: ", e);
+            console.log("An error occurred: ", e);
         }
     };
 
-    const storeData = async (key: string, value: string) => {
+    const storeData = async (key: string, value: Number) => {
         try {
-            await AsyncStorage.setItem(key, value);
+            await AsyncStorage.setItem(key, value.toString());
+            // await setWater(Number(value));
         } catch (e) {
             console.error("Failed to save data:", e);
         }
     };
 
-    const getData = async (key: string) => {
-
+    const getData = async () => {
         try {
-            const value = await AsyncStorage.getItem(key);
+            const value = await AsyncStorage.getItem('water');
             if (value !== null) {
-                await setWater(Number(value));
+                setWater(Number(value));
+                // console.log("setWater(Number(value)); ", water);
             }
         } catch (e) {
             console.error("Error fetching data:", e);
@@ -62,7 +60,7 @@ export default function WaterIntake() {
         const delay = nextNotification.getTime() - now.getTime();
 
         if (water < 5) {
-            console.log("Water: ", water);
+            // console.log("Water: ", water);
             await Notifications.scheduleNotificationAsync({
                 content: {
                     title: "You've got a message! 📬",
@@ -98,14 +96,15 @@ export default function WaterIntake() {
                     shouldSetBadge: true,
                 }),
             });
-            await getData('water');
             await schedulePushNotification();
-            await resetStorage();
         };
-
+        resetStorage();
         registerAndSchedule();
-
     }, []);
+
+    useEffect(() => {
+        console.log("Water:", water);
+    }, [water]);
 
     return (
         <View style={styles.container}>
@@ -113,7 +112,7 @@ export default function WaterIntake() {
             <TextInput
                 style={styles.input}
                 value={water.toString()}
-                onChangeText={addGlass}
+                editable={false}
                 keyboardType="numeric"
             />
             <Button title="Add a glass" onPress={addGlass} />
