@@ -7,11 +7,16 @@ export default function WaterIntake() {
     const [water, setWater] = useState<number>(0);
 
     const addGlass = async () => {
-        await setWater(prev => {
-            const newWater = prev + 1;
-            storeData('water', newWater.toString());
-            return newWater;
-        });
+        try {
+            await setWater(prev => {
+                const newWater = prev + 1;
+                storeData('water', newWater.toString());
+                return newWater;
+            });
+
+        } catch (e) {
+            console.log("An error accurred: ", e);
+        }
     };
 
     const storeData = async (key: string, value: string) => {
@@ -23,6 +28,7 @@ export default function WaterIntake() {
     };
 
     const getData = async (key: string) => {
+
         try {
             const value = await AsyncStorage.getItem(key);
             if (value !== null) {
@@ -37,8 +43,8 @@ export default function WaterIntake() {
         try {
             const now = new Date();
             if (now.getHours() === 23 && now.getMinutes() === 59) {
-                await AsyncStorage.clear();
-                setWater(0);
+                await AsyncStorage.removeItem('water');
+                // setWater(0);
             }
         } catch (error) {
             console.error("Failed to reset data:", error);

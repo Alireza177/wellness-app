@@ -28,15 +28,15 @@ export default function ImagePickerExample() {
 
     return (
         <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.container}>
-                <Button title="Pick an image from camera roll" onPress={pickImage} color="#841584" />
-                {image && <Image source={{ uri: image }} style={styles.image} />}
-            </View>
             <View style={styles.imageContainer}>
                 <Image
                     style={styles.image}
                     source={require('../selfies/OIP.jpg')}
                 />
+            </View>
+            <View style={styles.container}>
+                <Button title="Pick an image from camera roll" onPress={pickImage} color="#841584" />
+                {image && <Image source={{ uri: image }} style={styles.image} />}
             </View>
         </ScrollView>
     );
