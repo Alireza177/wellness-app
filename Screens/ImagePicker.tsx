@@ -10,7 +10,7 @@ export default function ImagePickerExample() {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         console.log('Permission status:', status);
         if (status === 'granted') {
-            let result: any = await ImagePicker.launchImageLibraryAsync({
+            let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: false,
             });
@@ -28,7 +28,7 @@ export default function ImagePickerExample() {
 
     return (
         <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.imageContainer}>
+            <View>
                 <Image
                     style={styles.image}
                     source={require('../selfies/OIP.jpg')}
@@ -45,26 +45,19 @@ export default function ImagePickerExample() {
 const styles = StyleSheet.create({
     scrollView: {
         flexGrow: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: 'black',
         padding: 20,
     },
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 20,
-    },
-    imageContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 20,
     },
     image: {
-        width: 200,
-        height: 200,
+        width: 300,
+        height: 300,
         borderRadius: 10,
-        margin: 10,
+        // margin: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,

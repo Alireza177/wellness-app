@@ -56,7 +56,6 @@ export default function HomeScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
     container: {
         padding: 10,
-        backgroundColor: 'black',
     },
     headline: {
         fontSize: 24,

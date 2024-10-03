@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ImagePicker from "../lib/ImagePicker";
+import ImagePicker from "../Screens/ImagePicker";
 import HomeScreen from "../Screens/HomeScreen";
 import LogStepsScreen from "../Screens/LogStepsScreen";
 import LogWaterScreen from "../Screens/LogWaterScreen";

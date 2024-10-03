@@ -116,7 +116,7 @@ export default function WaterIntake() {
                 keyboardType="numeric"
             />
             <Button title="Add a glass" onPress={addGlass} />
-            <Text style={{ color: 'white', marginTop: 7 }}>You have drunk {water} glasses of water today.</Text>
+            <Text style={{ marginTop: 7 }}>You have drunk {water} glasses of water today.</Text>
         </View>
     );
 }
@@ -127,20 +127,17 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
     },
     title: {
         fontSize: 24,
         marginBottom: 20,
-        color: 'white',
     },
     input: {
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: 'black',
         padding: 10,
         width: 100,
         textAlign: 'center',
         marginBottom: 20,
-        color: 'white',
     },
 });

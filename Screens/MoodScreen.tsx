@@ -46,18 +46,16 @@ export default function MoodScreen() {
 const s = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         gap: 2,
     },
     infoContainer: {
-        color: 'white',
         marginLeft: 20,
         marginTop: 10,
     },
     selectedMood: {
-        color: 'yellow',
+        color: 'blue',
         marginLeft: 20,
         marginTop: 20,
         fontSize: 18,

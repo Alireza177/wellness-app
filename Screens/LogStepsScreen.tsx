@@ -48,9 +48,9 @@ export default function StepCounter() {
 
     return (
         <View style={styles.container}>
-            <Text style={{ color: 'white' }}>Pedometer.isAvailableAsync(): {isPedometerAvailable}</Text>
-            <Text style={{ color: 'white' }}>Steps taken in the last 24 hours: {pastStepCount}</Text>
-            <Text style={{ color: 'white' }}>Walk! And watch this go up: {currentStepCount}</Text>
+            <Text>Pedometer.isAvailableAsync(): {isPedometerAvailable}</Text>
+            <Text>Steps taken in the last 24 hours: {pastStepCount}</Text>
+            <Text>Walk! And watch this go up: {currentStepCount}</Text>
         </View>
     );
 }
@@ -61,6 +61,5 @@ const styles = StyleSheet.create({
         marginTop: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'black',
     },
 });
