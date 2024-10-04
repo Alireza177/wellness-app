@@ -115,7 +115,7 @@ export default function App() {
             </View>
             <View style={{ marginBottom: 40 }}>
                 <Button
-                    title="Press to schedule a notification"
+                    title="Press to get a notification"
                     onPress={async () => {
                         await schedulePushNotification();
                     }}
