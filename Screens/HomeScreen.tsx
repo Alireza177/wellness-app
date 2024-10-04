@@ -29,7 +29,7 @@ export default function HomeScreen({ navigation }: Props) {
                     />
                 </View>
             </View>
-            <View style={styles.infoContainer}>
+            <View style={{ width: 350, height: 200, marginLeft: 12, marginTop: 10, marginBottom: 80 }}>
                 <LocationExpo />
             </View>
             <View style={styles.buttonContainer}>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     },
     image: {
         marginTop: 45,
-        marginLeft: -60,
+        marginLeft: -85,
         width: 200,
         height: 200,
         borderRadius: 150,

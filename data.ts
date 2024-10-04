@@ -12,7 +12,7 @@ interface User {
 
 export const user: User =
 {
-    fullname: "Charlie Brown",
+    fullname: "Charlie Browne",
     age: 22,
     weight: 70.8,
     height: 175.0,
