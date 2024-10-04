@@ -100,7 +100,7 @@ export default function WaterIntake() {
         };
         resetStorage();
         registerAndSchedule();
-    }, []);
+    }, [water]);
 
     useEffect(() => {
         console.log("Water:", water);

@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Pedometer } from 'expo-sensors';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -6,6 +7,17 @@ export default function StepCounter() {
     const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
     const [pastStepCount, setPastStepCount] = useState(0);
     const [currentStepCount, setCurrentStepCount] = useState(0);
+
+    const getStoredSteps = async () => {
+        try {
+            const storedSteps = await AsyncStorage.getItem('steps');
+            if (storedSteps !== null) {
+                setPastStepCount(Number(storedSteps));
+            }
+        } catch (error) {
+            console.error('Error retrieving steps from AsyncStorage:', error);
+        }
+    };
 
 
     const subscribe = async () => {
@@ -19,6 +31,7 @@ export default function StepCounter() {
             const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
             if (pastStepCountResult) {
                 setPastStepCount(pastStepCountResult.steps);
+                await AsyncStorage.setItem('steps', pastStepCount.toString());
             }
 
             return Pedometer.watchStepCount(result => {
@@ -33,7 +46,7 @@ export default function StepCounter() {
             if (permissionGranted) {
                 // await setIsPedometerAvailable();
                 const subscription = await subscribe();
-                return () => subscription && subscription.remove();
+                return () => subscription;
             } else {
                 setIsPedometerAvailable('Permission not granted');
             }
@@ -44,7 +57,7 @@ export default function StepCounter() {
         return () => {
             subscribeAsync().then(cleanup => cleanup && cleanup());
         };
-    }, []);
+    }, [isPedometerAvailable]);
 
     return (
         <View style={styles.container}>
