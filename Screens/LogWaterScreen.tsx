@@ -27,9 +27,9 @@ export default function WaterIntake() {
 
     const getData = async () => {
         try {
-            const value = await AsyncStorage.getItem('water');
-            if (value !== null) {
-                setWater(Number(value));
+            const storedWater = await AsyncStorage.getItem('water');
+            if (storedWater !== null) {
+                await setWater(Number(storedWater));
                 // console.log("setWater(Number(value)); ", water);
             }
         } catch (e) {
@@ -104,7 +104,7 @@ export default function WaterIntake() {
 
     useEffect(() => {
         console.log("Water:", water);
-    }, [water]);
+    }, []);
 
     return (
         <View style={styles.container}>

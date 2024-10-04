@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ImagePicker from "../Screens/ImagePicker";
 import HomeScreen from "../Screens/HomeScreen";
+import ImagePicker from "../Screens/ImagePicker";
 import LogStepsScreen from "../Screens/LogStepsScreen";
-import LogWaterScreen from "../Screens/LogWaterScreen";
+import LogWaterScreen2 from "../Screens/LogWaterScreen2";
 import MoodScreen from "../Screens/MoodScreen";
 import WorkoutScreen from "../Screens/WorkoutScreen";
 
@@ -21,7 +21,7 @@ export default function RootStackNavigator() {
     return (
         <RootStack.Navigator>
             <RootStack.Screen name="Home" component={HomeScreen} />
-            <RootStack.Screen name="LogWaterScreen" component={LogWaterScreen} />
+            <RootStack.Screen name="LogWaterScreen" component={LogWaterScreen2} />
             <RootStack.Screen name="LogStepsScreen" component={LogStepsScreen} />
             <RootStack.Screen name="ImagePicker" component={ImagePicker} />
             <RootStack.Screen name="MoodScreen" component={MoodScreen} />
