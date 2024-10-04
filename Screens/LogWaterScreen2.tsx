@@ -52,6 +52,21 @@ export default function App() {
         }
     };
 
+    const resetStorage = async () => {
+        try {
+            const now = new Date();
+            const everythingInAsyncStorage = await AsyncStorage.getAllKeys();
+            console.log(now);
+
+            if (now.getHours() === 23 && now.getMinutes() === 59 && everythingInAsyncStorage !== null) {
+                await AsyncStorage.clear();
+                console.log("AsyncStorage has been cleared.");
+            }
+        } catch (error) {
+            console.error("Failed to reset data:", error);
+        }
+    };
+
     useEffect(() => {
         loadWaterData();
         registerForPushNotificationsAsync().then(token => token && setExpoPushToken(token));
@@ -70,7 +85,15 @@ export default function App() {
             responseListener.current &&
                 Notifications.removeNotificationSubscription(responseListener.current);
         };
+    }, []); useEffect(() => {
+        const intervalId = setInterval(() => {
+            resetStorage();
+        }, 60000);
+
+        return () => clearInterval(intervalId);
     }, []);
+
+
 
     return (
         <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
@@ -87,7 +110,7 @@ export default function App() {
             </View>
 
             <View style={{ alignItems: 'flex-start', justifyContent: 'center', margin: 12 }}>
-                <Text>Title: {notification && notification.request.content.title} </Text>
+                <Text>Title: {notification && notification.request.content.title}</Text>
                 <Text>Body: {notification && notification.request.content.body}</Text>
             </View>
             <View style={{ marginBottom: 40 }}>
@@ -105,7 +128,7 @@ export default function App() {
 async function schedulePushNotification() {
 
     const water = await AsyncStorage.getItem('water');
-    if (water !== null && Number(water) < 5) {
+    if (Number(water) < 5) {
         await Notifications.scheduleNotificationAsync({
             content: {
                 title: "You've got mail! 📬",

@@ -4,7 +4,7 @@ import React from 'react';
 import HomeScreen from '../Screens/HomeScreen';
 import ImagePicker from '../Screens/ImagePicker';
 import LogStepsScreen from '../Screens/LogStepsScreen';
-import LogWaterScreen from '../Screens/LogWaterScreen';
+import LogWaterScreen from '../Screens/LogWaterScreen2';
 import MoodScreen from '../Screens/MoodScreen';
 import WorkoutScreen from '../Screens/WorkoutScreen';
 

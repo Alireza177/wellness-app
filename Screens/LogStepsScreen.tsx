@@ -11,7 +11,7 @@ export default function StepCounter() {
     const getStoredSteps = async () => {
         try {
             const storedSteps = await AsyncStorage.getItem('steps');
-            if (storedSteps !== null) {
+            if (storedSteps === null) {
                 setPastStepCount(Number(storedSteps));
             }
         } catch (error) {
